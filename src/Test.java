@@ -16,13 +16,8 @@ public class Test {
 	// Number of months/sheets that should be processed in the workbook
 	public static final int NR_OF_MONTHS = 12;
 
-	/*
-	 * Decides in which order sheets should be processed
-	 * 
-	 * true: from left to right
-	 * 
-	 * false: from right to left
-	 */
+	// Decides in which order sheets should be processed:
+	// [true: from left to right]; [false: from right to left]
 	public static final boolean LATEST_MONTH_FIRST = true;
 
 	// Relative path of input XLSX file
@@ -86,9 +81,17 @@ public class Test {
 						}
 					}
 
-					// Create an extra column that stores the current sheet's name
-					Cell outputCell = outputRow.createCell(inputCellInd);
-					outputCell.setCellValue(inputRowInd == 0 ? "Month" : inputSheet.getSheetName());
+					// Create extra columns that stores the current sheet's month and year ["mm_yyyy"]
+					String[] monthAndYear = inputSheet.getSheetName().split("_");
+					Cell outputMonthCell = outputRow.createCell(inputCellInd++);
+					Cell outputYearCell = outputRow.createCell(inputCellInd++);
+					if(inputRowInd == 0){
+						outputMonthCell.setCellValue("Month");						
+						outputYearCell.setCellValue("Year");
+					}else{
+						outputMonthCell.setCellValue(Integer.parseInt(monthAndYear[0]));
+						outputYearCell.setCellValue(Integer.parseInt(monthAndYear[1]));
+					}					
 				}
 			}
 
