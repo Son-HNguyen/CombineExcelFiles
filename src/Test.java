@@ -3,12 +3,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Iterator;
 
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Test {
 
@@ -21,10 +20,10 @@ public class Test {
 	public static final boolean LATEST_MONTH_FIRST = true;
 
 	// Relative path of input XLSX file
-	public static final String INPUT_XLSX_PATH = "input/Docks_Consumption.xlsx";
+	public static final String INPUT_XLSX_PATH = "input/Docks_Consumption_AbsPlusNorm.xlsx";
 
 	// Relative path of output XLSX file
-	public static final String OUTPUT_XLSX_PATH = "output/Combined_Docks_Consumption.xlsx";
+	public static final String OUTPUT_XLSX_PATH = "output/Combined_Docks_Consumption_AbsPlusNorm.xlsx";
 	// ------------------------------------------------------------------------------------------------------------------------
 
 	public static void main(String[] args) {
@@ -81,17 +80,18 @@ public class Test {
 						}
 					}
 
-					// Create extra columns that stores the current sheet's month and year ["mm_yyyy"]
+					// Create extra columns that stores the current sheet's
+					// month and year ["mm_yyyy"]
 					String[] monthAndYear = inputSheet.getSheetName().split("_");
 					Cell outputMonthCell = outputRow.createCell(inputCellInd++);
 					Cell outputYearCell = outputRow.createCell(inputCellInd++);
-					if(inputRowInd == 0){
-						outputMonthCell.setCellValue("Month");						
+					if (inputRowInd == 0) {
+						outputMonthCell.setCellValue("Month");
 						outputYearCell.setCellValue("Year");
-					}else{
+					} else {
 						outputMonthCell.setCellValue(Integer.parseInt(monthAndYear[0]));
 						outputYearCell.setCellValue(Integer.parseInt(monthAndYear[1]));
-					}					
+					}
 				}
 			}
 
